@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./OrdersPage.css";
 import Header from "../../components/Header";
-
 import dayjs from "dayjs";
 import money from "../../utils/money";
 import OrderDetailsGrid from "./OrderDetailsGrid";
@@ -11,9 +10,11 @@ function OrdersPage({ cart }) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/orders?expand=products").then((response) => {
+    const getProducts = async () => {
+      const response = await axios.get("/api/orders?expand=products");
       setOrders(response.data);
-    });
+    };
+    getProducts();
   }, []);
   return (
     <>
